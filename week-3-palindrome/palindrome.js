@@ -1,62 +1,65 @@
+import { input } from "@inquirer/prompts";
 // TODO: Create Stack and Queue classes.
-
 class Queue {
+  constructor() {
+    this.storage = [];
+  }
+  enqueue(item) {
+    this.storage.push(item);
+  }
+  dequeue(){
+    return this.storage.shift();
+  }
+  peek() {
+    return this.storage[0];
+
+  }
+  isEmpty() {
+    return this.storage.length === 0 ? true : false;
+  }
 
 }
 
 class Stack {
   constructor() {
-      this.items = [];
+      this.storage = [];
   }
-  push(names) {
-      this.items.push(names);
+  push(items) {
+      this.storage.push(items);
   }
   pop() {
-      return this.items.pop();
+      return this.storage.pop();
   }
   peek() {
-      return this.items[0];
+      return this.storage[this.storage.length - 1];
   }
   isEmpty() {
-      return this.items.length === 0;
+      return this.storage.length === 0 ? true : false;
   };
 }
-let s = new Stack();
-s.push("Alice");
-s.push("Beatrice");
-s.push("Caroline");
-console.log(s);
-s.push("David");
-console.log(s);
 
-let first = s.pop();
-console.log(first);
-
-let last = s.peek();
-console.log(last);
-console.log(s.isEmpty());
 
 function isPalindrome(str) {
   // TODO: instantiate the stack and queue
-  let stack ;
-  let queue ;
+  let stack = new Stack();
+  let queue = new Queue();
 
   // TODO: Step 1: Sanitize the input (BONUS)
-  let sanitizedStr; 
+  let sanitizedStr = str.toLowerCase().replace(); 
 
   // TODO: Step 2: Push characters onto stack and enqueue them into queue
   for (let i=0; i< sanitizedStr.length; i++) {
     let char = sanitizedStr[i]; 
 
-    stack.push(char)
-    queue.enqueue(char)
+    stack.push(char);
+    queue.enqueue(char);
 
   }
 
   // TODO: Step 3: Compare characters by popping from stack and dequeuing from queue
-  while (!stack.isEmpty()) {
-    let a = [1,2,3,4,5];
-    let b = [1,2,3,4,5]
+  while (!stack.isEmpty() && !queue.isEmpty()) {
+    let a = stack.pop();
+    let b = queue.dequeue();
 
       if (a !== b) {
           return "The string is not a palindrome.";
@@ -69,3 +72,5 @@ function isPalindrome(str) {
 // Example usage:
 let inputStr = prompt("Enter a string to check for palindrome: ");
 console.log(isPalindrome(inputStr));
+
+
